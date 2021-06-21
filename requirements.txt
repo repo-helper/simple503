@@ -1,0 +1,9 @@
+airium>=0.2.2
+apeye>=1.0.1
+cawdrey>=0.4.2
+click>=8.0.1
+consolekit>=1.2.2
+domdf-python-tools>=2.9.1
+first>=2.0.2
+shippinglabel>=0.15.0
+typing-extensions>=3.7.4.1
