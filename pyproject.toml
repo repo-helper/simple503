@@ -5,7 +5,7 @@ build-backend = "whey"
 [project]
 name = "simple503"
 version = "0.0.0"
-description = "PEP 503 index generator."
+description = "PEP 503 Python package repository generator."
 readme = "README.rst"
 keywords = [ "pep503", "pep658", "pip", "pypi",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]

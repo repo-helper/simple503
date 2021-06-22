@@ -9,7 +9,7 @@ assignee: 'domdfcoding'
 primary_conda_channel: "domdfcoding"
 version: '0.0.0'
 license: 'MIT'
-short_desc: 'PEP 503 index generator.'
+short_desc: 'PEP 503 Python package repository generator.'
 
 use_whey: true
 python_deploy_version: 3.6

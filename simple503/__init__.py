@@ -2,7 +2,7 @@
 #
 #  __init__.py
 """
-:pep:`503` index generator.
+:pep:`503` Python package repository generator.
 """
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -82,13 +82,14 @@ def make_simple(
 		move: bool = False,
 		) -> Dict[str, List["WheelFile"]]:
 	"""
-	Generate a simple index of Python wheels.
+	Generate a simple repository of Python wheels.
 
 	:param origin: A directory containing wheels. The wheels may be arranged in subdirectories.
-	:param target: The directory to create the index in. The directory structure of ``origin`` will be recreated here.
+	:param target: The directory to create the repository in.
+		The directory structure of ``origin`` will be recreated there.
 		Defaults to ``origin``.
 	:no-default target:
-	:param base_url: The base URL of the simple index.
+	:param base_url: The base URL of the simple repository.
 	:param move: Move the wheel files into the per-project base directories.
 
 	:returns: A mapping of (unnormalized) project names to a list of wheels for that project.
@@ -152,10 +153,10 @@ def make_simple(
 
 def generate_index(projects: Iterable[str], base_url: Union[str, URL] = '/') -> Airium:
 	"""
-	Generate the simple index, containing a list of all projects.
+	Generate the simple repository index page, containing a list of all projects.
 
 	:param projects: The list of projects to generate links for.
-	:param base_url: The base URL of the simple index.
+	:param base_url: The base URL of the Python package repository.
 		For example, with PyPI's URL, a URL of /foo/ would be https://pypi.org/simple/foo/.
 	"""
 
@@ -171,7 +172,7 @@ def generate_index(projects: Iterable[str], base_url: Union[str, URL] = '/') -> 
 			# Not part of the spec, but allowed
 			index.meta(name="generator", content=f"simple503 version {__version__}")
 			with index.title():
-				index(f"Simple Index")
+				index(f"Simple Package Repository")
 
 		with index.body():
 
@@ -187,7 +188,7 @@ def generate_index(projects: Iterable[str], base_url: Union[str, URL] = '/') -> 
 
 class WheelFile(NamedTuple):
 	"""
-	Represents a wheel file in the index.
+	Represents a wheel file in the repository.
 	"""
 
 	#: The name of the wheel file.
@@ -223,7 +224,7 @@ class WheelFile(NamedTuple):
 		Generate an anchor tag in a :class:`airium.Airium` document for this file.
 
 		:param page:
-		:param base_url: The base URL of the simple index.
+		:param base_url: The base URL of the Python package repository.
 		"""
 
 		base_url = URL(base_url)
@@ -246,11 +247,11 @@ class WheelFile(NamedTuple):
 
 def generate_project_page(name: str, files: Iterable[WheelFile], base_url: Union[str, URL] = '/') -> Airium:
 	"""
-	Generate the simple index page for a project.
+	Generate the repository page for a project.
 
 	:param name: The project name, e.g. ``domdf-python-tools``.
 	:param files: An iterable of files for the project, which will be linked to from the index page.
-	:param base_url: The base URL of the simple index.
+	:param base_url: The base URL of the Python package repository.
 		For example, with PyPI's URL, a URL of /foo/ would be https://pypi.org/simple/foo/.
 	"""
 

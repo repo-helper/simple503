@@ -49,7 +49,12 @@ __all__ = ["main"]
 		type=click.STRING,
 		help="Move the wheel files into the per-project base directories.",
 		)
-@auto_default_option("-B", "--base-url", type=click.STRING, help="The base URL for the simple index.")
+@auto_default_option(
+		"-B",
+		"--base-url",
+		type=click.STRING,
+		help="The base URL for the Python package repository.",
+		)
 @auto_default_argument("target", type=click.STRING)
 @click.argument("origin", type=click.STRING)
 @click_command()
@@ -61,7 +66,7 @@ def main(
 		cleanup: bool = False,
 		):
 	"""
-	Generate a PEP 503 index in TARGET for the wheels in ORIGIN.
+	Generate a PEP 503 Python package repository in TARGET for the wheels in ORIGIN.
 	"""
 
 	if cleanup:

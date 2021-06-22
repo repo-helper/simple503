@@ -4,7 +4,7 @@ simple503
 
 .. start short_desc
 
-**PEP 503 index generator.**
+**PEP 503 Python package repository generator.**
 
 .. end short_desc
 
