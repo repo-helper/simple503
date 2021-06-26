@@ -62,16 +62,14 @@ def cleanup(directory: PathLike):
 
 		if filename.match("**/index.html"):
 			filename.unlink()
-		if filename.match("**/*.whl.metadata"):
+		elif filename.match("**/*.whl.metadata"):
 			filename.unlink()
 
 	for filename in directory.rglob("**/*"):
 		if not filename.is_dir():
 			continue
 
-		try:
-			next(filename.iterdir())
-		except StopIteration:
+		if next(filename.iterdir(), None) is None:
 			filename.rmdir()
 
 
@@ -84,9 +82,11 @@ def load_metadata(rawtext: str) -> Tuple[HeaderMapping, str]:
 	:returns: A mapping of the metadata fields, and the long description
 	"""
 
-	try:
-		rawtext, body = rawtext.split("\n\n", maxsplit=1)
-	except ValueError:
+	delimiter = "\n\n"
+
+	if delimiter in rawtext:
+		rawtext, body = rawtext.split(delimiter, maxsplit=1)
+	else:
 		body = ''
 
 	# unfold per RFC 5322 § 2.2.3
@@ -99,9 +99,6 @@ def load_metadata(rawtext: str) -> Tuple[HeaderMapping, str]:
 
 	while file_content:
 		line = file_content.pop()
-
-		if not line:
-			break
 
 		field_name, field_value = divide(line, ':')
 		fields[field_name] = field_value.lstrip()

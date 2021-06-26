@@ -134,7 +134,7 @@ def make_simple(
 
 			projects[metadata["Name"]].append(
 					WheelFile(
-							filename=target_file.relative_to(origin).as_posix(),
+							filename=target_file.relative_to(target).as_posix(),
 							wheel_hash=get_sha256_hash(target_file),
 							requires_python=metadata.get("Requires-Python"),
 							metadata_hash=get_sha256_hash(metadata_filename),
