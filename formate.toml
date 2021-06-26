@@ -34,6 +34,7 @@ default_section = "THIRDPARTY"
 known_third_party = [
     "airium",
     "apeye",
+    "beautifulsoup4",
     "cawdrey",
     "click",
     "coincidence",
@@ -43,6 +44,7 @@ known_third_party = [
     "dataclasses",
     "domdf_python_tools",
     "first",
+    "html5lib",
     "importlib_metadata",
     "natsort",
     "pytest",
