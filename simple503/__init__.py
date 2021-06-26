@@ -31,6 +31,7 @@ import shutil
 import zipfile
 from collections import defaultdict
 from html import escape
+from operator import attrgetter
 from typing import TYPE_CHECKING, Dict, Iterable, List, NamedTuple, Optional, Union
 
 # 3rd party
@@ -39,6 +40,7 @@ from apeye.url import URL
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.typing import PathLike
 from first import first
+from natsort import natsorted
 from shippinglabel import normalize
 from shippinglabel.checksum import get_sha256_hash
 from typing_extensions import Literal
@@ -145,7 +147,12 @@ def make_simple(
 		project_dir = target / normalize(project_name)
 		project_dir.maybe_make()
 
-		project_index = generate_project_page(project_name, project_files, base_url)
+		project_index = generate_project_page(
+				project_name,
+				natsorted(project_files, key=attrgetter("filename")),
+				base_url,
+				)
+
 		(project_dir / "index.html").write_clean(str(project_index))
 
 	return projects
