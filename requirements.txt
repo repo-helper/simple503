@@ -3,6 +3,7 @@ apeye>=1.0.1
 cawdrey>=0.4.2
 click>=8.0.1
 consolekit>=1.2.2
+dataclasses>=0.8; python_version == "3.6"
 domdf-python-tools>=2.9.1
 first>=2.0.2
 natsort>=7.1.1
