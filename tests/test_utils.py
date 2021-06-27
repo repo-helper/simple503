@@ -1,6 +1,6 @@
 # 3rd party
 from coincidence import AdvancedDataRegressionFixture
-from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.paths import PathPlus, sort_paths
 
 # this package
 from simple503 import make_simple
@@ -22,9 +22,9 @@ def test_cleanup(
 	cleaned_content = [p.relative_to(tmp_pathplus) for p in wheel_directory.iterchildren()]
 
 	advanced_data_regression.check({
-			"original_content": original_content,
-			"generated_content": generated_content,
-			"cleaned_content": cleaned_content,
+			"original_content": sort_paths(*original_content),
+			"generated_content": sort_paths(*generated_content),
+			"cleaned_content": sort_paths(*cleaned_content),
 			})
 
 	assert original_content == cleaned_content
