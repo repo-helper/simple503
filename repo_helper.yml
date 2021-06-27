@@ -11,6 +11,7 @@ version: '0.0.0'
 license: 'MIT'
 short_desc: 'PEP 503 Python package repository generator.'
 
+enable_conda: false
 use_whey: true
 python_deploy_version: 3.6
 #min_coverage: 90

@@ -23,8 +23,6 @@ simple503
 		  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
 		* - PyPI
 		  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
-		* - Anaconda
-		  - |conda-version| |conda-platform|
 		* - Activity
 		  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
 		* - QA
@@ -89,14 +87,6 @@ simple503
 		:wheel:
 		:alt: PyPI - Wheel
 
-	.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/simple503?logo=anaconda
-		:target: https://anaconda.org/domdfcoding/simple503
-		:alt: Conda - Package Version
-
-	.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/simple503?label=conda%7Cplatform
-		:target: https://anaconda.org/domdfcoding/simple503
-		:alt: Conda - Platform
-
 	.. |license| github-shield::
 		:license:
 		:alt: License
@@ -131,8 +121,6 @@ Installation
 .. installation:: simple503
 	:pypi:
 	:github:
-	:anaconda:
-	:conda-channels: domdfcoding
 
 .. end installation
 

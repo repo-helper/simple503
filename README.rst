@@ -21,8 +21,6 @@ simple503
 	  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
-	* - Anaconda
-	  - |conda-version| |conda-platform|
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
 	* - QA
@@ -86,14 +84,6 @@ simple503
 	:target: https://pypi.org/project/simple503/
 	:alt: PyPI - Wheel
 
-.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/simple503?logo=anaconda
-	:target: https://anaconda.org/domdfcoding/simple503
-	:alt: Conda - Package Version
-
-.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/simple503?label=conda%7Cplatform
-	:target: https://anaconda.org/domdfcoding/simple503
-	:alt: Conda - Platform
-
 .. |license| image:: https://img.shields.io/github/license/repo-helper/simple503
 	:target: https://github.com/repo-helper/simple503/blob/master/LICENSE
 	:alt: License
@@ -123,26 +113,12 @@ Installation
 
 .. start installation
 
-``simple503`` can be installed from PyPI or Anaconda.
+``simple503`` can be installed from PyPI.
 
 To install with ``pip``:
 
 .. code-block:: bash
 
 	$ python -m pip install simple503
-
-To install with ``conda``:
-
-	* First add the required channels
-
-	.. code-block:: bash
-
-		$ conda config --add channels https://conda.anaconda.org/domdfcoding
-
-	* Then install
-
-	.. code-block:: bash
-
-		$ conda install simple503
 
 .. end installation
