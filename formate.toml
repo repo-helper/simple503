@@ -42,6 +42,7 @@ known_third_party = [
     "coverage",
     "coverage_pyver_pragma",
     "dataclasses",
+    "dist_meta",
     "domdf_python_tools",
     "first",
     "html5lib",
