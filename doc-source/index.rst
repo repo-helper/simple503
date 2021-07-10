@@ -140,6 +140,7 @@ Contents
 	:maxdepth: 3
 	:glob:
 
+	overview
 	usage
 	api
 
