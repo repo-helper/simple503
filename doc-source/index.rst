@@ -141,13 +141,7 @@ Contents
 	:glob:
 
 	usage
-	api/simple503
-	api/*
-
-.. toctree::
-	:maxdepth: 3
-	:caption: Contributing
-
+	api
 
 .. sidebar-links::
 	:caption: Links
