@@ -5,7 +5,7 @@ import shutil
 import pytest
 from domdf_python_tools.paths import PathPlus
 
-pytest_plugins = ("coincidence", "tests.yaml_path")
+pytest_plugins = ("coincidence", "consolekit.testing", "tests.yaml_path")
 
 _original_wheel_directory = PathPlus(__file__).parent / "wheels"
 

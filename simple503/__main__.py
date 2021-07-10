@@ -36,9 +36,6 @@ from consolekit import click_command
 from consolekit.options import auto_default_argument, auto_default_option, flag_option
 from domdf_python_tools.typing import PathLike
 
-# this package
-from simple503 import make_simple
-
 __all__ = ["main"]
 
 
@@ -71,9 +68,14 @@ def main(
 
 	if cleanup:
 		# this package
-		from simple503.utils import cleanup as do_cleanup
+		from simple503 import cleanup as do_cleanup
+
 		do_cleanup(target or origin)
+
 	else:
+		# this package
+		from simple503 import make_simple
+
 		make_simple(origin, target, base_url=base_url, move=move)
 
 
