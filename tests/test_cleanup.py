@@ -3,8 +3,8 @@ from coincidence import AdvancedDataRegressionFixture
 from domdf_python_tools.paths import PathPlus, sort_paths
 
 # this package
-from simple503 import make_simple
-from simple503.utils import cleanup
+from simple503 import cleanup, make_simple
+from simple503.__main__ import main
 
 
 def test_cleanup(
