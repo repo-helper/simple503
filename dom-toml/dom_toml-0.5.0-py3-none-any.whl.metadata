@@ -1,0 +1,183 @@
+Metadata-Version: 2.1
+Name: dom-toml
+Version: 0.5.0
+Summary: Dom's tools for Tom's Obvious, Minimal Language.
+Author-email: Dominic Davis-Foster <dominic@davis-foster.co.uk>
+License: MIT
+Keywords: configuration,serialize,toml
+Home-page: https://github.com/domdfcoding/dom_toml
+Project-URL: Issue Tracker, https://github.com/domdfcoding/dom_toml/issues
+Project-URL: Source Code, https://github.com/domdfcoding/dom_toml
+Project-URL: Documentation, https://dom_toml.readthedocs.io/en/latest
+Platform: Windows
+Platform: macOS
+Platform: Linux
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Typing :: Typed
+Requires-Python: >=3.6
+Requires-Dist: domdf-python-tools>=2.7.0
+Requires-Dist: toml>=0.10.2
+Description-Content-Type: text/x-rst
+
+
+#########
+dom_toml
+#########
+
+.. start short_desc
+
+**Dom's tools for Tom's Obvious, Minimal Language.**
+
+.. end short_desc
+
+
+.. start shields
+
+.. list-table::
+	:stub-columns: 1
+	:widths: 10 90
+
+	* - Docs
+	  - |docs| |docs_check|
+	* - Tests
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
+	* - PyPI
+	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Anaconda
+	  - |conda-version| |conda-platform|
+	* - Activity
+	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
+	* - QA
+	  - |codefactor| |actions_flake8| |actions_mypy|
+	* - Other
+	  - |license| |language| |requires|
+
+.. |docs| image:: https://img.shields.io/readthedocs/dom_toml/latest?logo=read-the-docs
+	:target: https://dom_toml.readthedocs.io/en/latest
+	:alt: Documentation Build Status
+
+.. |docs_check| image:: https://github.com/domdfcoding/dom_toml/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/domdfcoding/dom_toml/actions?query=workflow%3A%22Docs+Check%22
+	:alt: Docs Check Status
+
+.. |actions_linux| image:: https://github.com/domdfcoding/dom_toml/workflows/Linux/badge.svg
+	:target: https://github.com/domdfcoding/dom_toml/actions?query=workflow%3A%22Linux%22
+	:alt: Linux Test Status
+
+.. |actions_windows| image:: https://github.com/domdfcoding/dom_toml/workflows/Windows/badge.svg
+	:target: https://github.com/domdfcoding/dom_toml/actions?query=workflow%3A%22Windows%22
+	:alt: Windows Test Status
+
+.. |actions_macos| image:: https://github.com/domdfcoding/dom_toml/workflows/macOS/badge.svg
+	:target: https://github.com/domdfcoding/dom_toml/actions?query=workflow%3A%22macOS%22
+	:alt: macOS Test Status
+
+.. |actions_flake8| image:: https://github.com/domdfcoding/dom_toml/workflows/Flake8/badge.svg
+	:target: https://github.com/domdfcoding/dom_toml/actions?query=workflow%3A%22Flake8%22
+	:alt: Flake8 Status
+
+.. |actions_mypy| image:: https://github.com/domdfcoding/dom_toml/workflows/mypy/badge.svg
+	:target: https://github.com/domdfcoding/dom_toml/actions?query=workflow%3A%22mypy%22
+	:alt: mypy status
+
+.. |requires| image:: https://requires.io/github/domdfcoding/dom_toml/requirements.svg?branch=master
+	:target: https://requires.io/github/domdfcoding/dom_toml/requirements/?branch=master
+	:alt: Requirements Status
+
+.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/dom_toml/master?logo=coveralls
+	:target: https://coveralls.io/github/domdfcoding/dom_toml?branch=master
+	:alt: Coverage
+
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/dom_toml?logo=codefactor
+	:target: https://www.codefactor.io/repository/github/domdfcoding/dom_toml
+	:alt: CodeFactor Grade
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/dom_toml
+	:target: https://pypi.org/project/dom_toml/
+	:alt: PyPI - Package Version
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/dom_toml?logo=python&logoColor=white
+	:target: https://pypi.org/project/dom_toml/
+	:alt: PyPI - Supported Python Versions
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/dom_toml
+	:target: https://pypi.org/project/dom_toml/
+	:alt: PyPI - Supported Implementations
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/dom_toml
+	:target: https://pypi.org/project/dom_toml/
+	:alt: PyPI - Wheel
+
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/dom_toml?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/dom_toml
+	:alt: Conda - Package Version
+
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/dom_toml?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/dom_toml
+	:alt: Conda - Platform
+
+.. |license| image:: https://img.shields.io/github/license/domdfcoding/dom_toml
+	:target: https://github.com/domdfcoding/dom_toml/blob/master/LICENSE
+	:alt: License
+
+.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/dom_toml
+	:alt: GitHub top language
+
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/dom_toml/v0.5.0
+	:target: https://github.com/domdfcoding/dom_toml/pulse
+	:alt: GitHub commits since tagged version
+
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/dom_toml
+	:target: https://github.com/domdfcoding/dom_toml/commit/master
+	:alt: GitHub last commit
+
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2021
+	:alt: Maintenance
+
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/dom_toml
+	:target: https://pypi.org/project/dom_toml/
+	:alt: PyPI - Downloads
+
+.. end shields
+
+Installation
+--------------
+
+.. start installation
+
+``dom_toml`` can be installed from PyPI or Anaconda.
+
+To install with ``pip``:
+
+.. code-block:: bash
+
+	$ python -m pip install dom_toml
+
+To install with ``conda``:
+
+	* First add the required channels
+
+	.. code-block:: bash
+
+		$ conda config --add channels https://conda.anaconda.org/conda-forge
+		$ conda config --add channels https://conda.anaconda.org/domdfcoding
+
+	* Then install
+
+	.. code-block:: bash
+
+		$ conda install dom_toml
+
+.. end installation
