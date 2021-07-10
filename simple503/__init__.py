@@ -28,7 +28,6 @@
 
 # stdlib
 import shutil
-import zipfile
 from collections import defaultdict
 from html import escape
 from operator import attrgetter
@@ -145,7 +144,7 @@ def make_simple(
 
 		project_index = generate_project_page(
 				project_name,
-				natsorted(project_files, key=attrgetter("filename")),
+				natsorted(project_files, key=attrgetter("filename"), reverse=True),
 				base_url,
 				)
 
@@ -163,23 +162,19 @@ def generate_index(projects: Iterable[str], base_url: Union[str, URL] = '/') -> 
 		For example, with PyPI's URL, a URL of /foo/ would be https://pypi.org/simple/foo/.
 	"""
 
-	# this package
-	from simple503 import __version__
-
 	base_url = URL(base_url)
 	index = Airium()
 
 	index("<!DOCTYPE html>")
 	with index.html(lang="en"):
 		with index.head():
-			# Not part of the spec, but allowed
-			index.meta(name="generator", content=f"simple503 version {__version__}")
+			get_meta_tags(index)
+
 			with index.title():
 				index(f"Simple Package Repository")
 
 		with index.body():
-
-			for project_name in projects:
+			for project_name in natsorted(projects, key=str.lower):
 				normalized_name = normalize(project_name)
 
 				with index.a(href=f"{base_url / normalized_name}/"):
@@ -269,8 +264,7 @@ def generate_project_page(name: str, files: Iterable[WheelFile], base_url: Union
 	with page.html(lang="en"):
 
 		with page.head():
-			# Not part of the spec, but allowed
-			page.meta(name="generator", content=f"simple503 version {__version__}")
+			get_meta_tags(page)
 			with page.title():
 				page(f"Links for {name}")
 
@@ -282,9 +276,15 @@ def generate_project_page(name: str, files: Iterable[WheelFile], base_url: Union
 
 			for wheel_file in files:
 				wheel_file.as_anchor(page, base_url)
-			page.br()
+				page.br()
 
 	return page
+
+
+def get_meta_tags(page: Airium):
+	# Not part of the spec, but allowed
+	page.meta(name="generator", content=f"simple503 version {__version__}")
+	page.meta(charset="UTF-8")
 
 
 def cleanup(directory: PathLike):
