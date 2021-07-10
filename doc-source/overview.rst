@@ -10,6 +10,8 @@ The source directory can optionally be pre-sorted by project name, or ``simple50
 Example
 ------------
 
+.. seealso:: An online example repository can be seen at https://repo-helper.uk/simple503/
+
 Consider the following directory::
 
 	simple
