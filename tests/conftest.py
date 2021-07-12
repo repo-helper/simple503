@@ -19,7 +19,7 @@ def wheel_directory(tmp_pathplus) -> PathPlus:
 @pytest.fixture()
 def fixed_version(monkeypatch):
 	# 3rd party
-	from airium import Airium
+	from airium import Airium  # type: ignore
 
 	def get_meta_tags(page: Airium):
 		# Not part of the spec, but allowed
