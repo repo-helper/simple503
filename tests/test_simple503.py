@@ -3,6 +3,7 @@ import hashlib
 from functools import partial
 
 # 3rd party
+import pytest
 from apeye import URL
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
@@ -69,6 +70,7 @@ def test_to_target_move(
 			})
 
 
+@pytest.mark.usefixtures("fixed_version")
 def test_index_page(
 		wheel_directory: PathPlus,
 		advanced_file_regression: AdvancedFileRegressionFixture,
@@ -89,6 +91,7 @@ def test_index_page(
 		assert (file / "index.html").is_file()
 
 
+@pytest.mark.usefixtures("fixed_version")
 def test_project_page(
 		wheel_directory: PathPlus,
 		advanced_file_regression: AdvancedFileRegressionFixture,
@@ -122,6 +125,7 @@ def test_project_page(
 		assert anchor["data-requires-python"] in {">=3.6.1", ">=3.6"}
 
 
+@pytest.mark.usefixtures("fixed_version")
 def test_generate_project_page(advanced_file_regression: AdvancedFileRegressionFixture):
 	the_hash = hashlib.sha256()
 	the_hash.update(b"hello world")

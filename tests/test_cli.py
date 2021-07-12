@@ -1,4 +1,5 @@
 # 3rd party
+import pytest
 from apeye import URL
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence.regressions import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
@@ -77,6 +78,7 @@ def test_to_target_move(
 			})
 
 
+@pytest.mark.usefixtures("fixed_version")
 def test_index_page(
 		wheel_directory: PathPlus,
 		advanced_file_regression: AdvancedFileRegressionFixture,
@@ -101,6 +103,7 @@ def test_index_page(
 		assert (file / "index.html").is_file()
 
 
+@pytest.mark.usefixtures("fixed_version")
 def test_project_page(
 		wheel_directory: PathPlus,
 		advanced_file_regression: AdvancedFileRegressionFixture,
