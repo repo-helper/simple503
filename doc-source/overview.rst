@@ -28,7 +28,7 @@ Consider the following directory::
 	├── domdf_python_tools-0.9.2-py3-none-any.whl
 	└── zipp-3.4.1-py3-none-any.whl
 
-after running ``simple503 ./simple`` the directory looks like::
+After running ``simple503 ./simple`` the directory looks like::
 
 	simple
 	├── alabaster
@@ -81,7 +81,7 @@ after running ``simple503 ./simple`` the directory looks like::
 ``simple503`` has created a directory for each project, and within that directory has created an ``index.html`` containing a list of wheels for that project.
 A top-level ``index.html`` file has also been created, which lists all available projects.
 
-``simple503`` can also be run with the :option:`--move <simple503 --move>` option, which will move thw wheels into the appropriate project directory::
+``simple503`` can also be run with the :option:`--move <simple503 --move>` option, which will move the wheels into the appropriate project directory::
 
 	simple
 	├── alabaster
@@ -148,3 +148,14 @@ To use the repository with pip, use the `--extra-index-url`_ option:
 Alternatively, the directory can be uploaded to a static-file hosting service, and the public https URL used instead.
 
 .. _--extra-index-url: https://pip.pypa.io/en/stable/cli/pip_install/#install-extra-index-url
+
+Similar Tools
+---------------
+
+* simpleindex_ -- can serve a :pep:`503` repository using routing rules,
+  such as to get some files from AWS S3 and pass other requests through to PyPI itself.
+
+* pypiserver_ -- Serves packages from regular directories, with support for authentication and uploads.
+
+.. _simpleindex: https://github.com/uranusjr/simpleindex
+.. _pypiserver: https://pypi.org/project/pypiserver/
