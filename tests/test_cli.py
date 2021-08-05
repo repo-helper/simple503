@@ -63,6 +63,7 @@ def test_to_target_move(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
 		advanced_data_regression: AdvancedDataRegressionFixture,
+		advanced_file_regression: AdvancedFileRegressionFixture,
 		cli_runner: CliRunner,
 		):
 	target = tmp_pathplus / "target"
@@ -76,6 +77,8 @@ def test_to_target_move(
 			"origin": sort_paths(*origin_content),
 			"target": sort_paths(*target_content),
 			})
+
+	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
 
 
 @pytest.mark.usefixtures("fixed_version")

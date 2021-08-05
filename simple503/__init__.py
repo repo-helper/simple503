@@ -27,6 +27,7 @@
 #
 
 # stdlib
+import posixpath
 import shutil
 from collections import defaultdict
 from html import escape
@@ -240,7 +241,7 @@ class WheelFile(NamedTuple):
 			kwargs["data-dist-info-metadata"] = hash_string
 
 		with page.a(**kwargs):
-			page(self.filename)
+			page(posixpath.basename(self.filename))
 
 
 def generate_project_page(name: str, files: Iterable[WheelFile], base_url: Union[str, URL] = '/') -> Airium:
