@@ -96,7 +96,7 @@ simple503
 		:alt: GitHub top language
 
 	.. |commits-since| github-shield::
-		:commits-since: v0.1.0
+		:commits-since: v0.1.1
 		:alt: GitHub commits since tagged version
 
 	.. |commits-latest| github-shield::
