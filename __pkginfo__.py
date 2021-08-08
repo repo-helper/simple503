@@ -13,4 +13,6 @@
 
 __all__ = ["extras_require"]
 
-extras_require = {}
+extras_require = {
+		"incremental": ["beautifulsoup>=3.2.2", "html5lib>=1.1"], "all": ["beautifulsoup>=3.2.2", "html5lib>=1.1"]
+		}
