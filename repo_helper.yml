@@ -63,5 +63,5 @@ exclude_files:
 
 extras_require:
  incremental:
-  - beautifulsoup>=3.2.2
+  - beautifulsoup4>=4.9.3
   - html5lib>=1.1

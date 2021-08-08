@@ -27,6 +27,10 @@ Documentation = "https://simple503.readthedocs.io/en/latest"
 [project.scripts]
 simple503 = "simple503.__main__:main"
 
+[project.optional-dependencies]
+incremental = [ "beautifulsoup4>=4.9.3", "html5lib>=1.1",]
+all = [ "beautifulsoup4>=4.9.3", "html5lib>=1.1",]
+
 [tool.sphinx-pyproject]
 github_username = "repo-helper"
 github_repository = "simple503"
