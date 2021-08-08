@@ -53,6 +53,7 @@ def test_to_target(
 			})
 
 
+@pytest.mark.usefixtures("fixed_version")
 def test_to_target_move(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
