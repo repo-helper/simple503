@@ -18,6 +18,7 @@ min_coverage: 100
 docs_fail_on_warning: true
 sphinx_html_theme: furo
 mypy_version: "0.910"
+tox_testenv_extras: incremental
 
 # Versions to run tests for
 python_versions:
@@ -59,3 +60,8 @@ keywords:
 
 exclude_files:
  - contributing
+
+extras_require:
+ incremental:
+  - beautifulsoup>=3.2.2
+  - html5lib>=1.1

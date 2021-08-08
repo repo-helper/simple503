@@ -1,13 +1,15 @@
 # stdlib
 import hashlib
+import shutil
 from functools import partial
 
 # 3rd party
 import pytest
+from airium import Airium  # type: ignore
 from apeye import URL
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
-from domdf_python_tools.paths import PathPlus, sort_paths
+from domdf_python_tools.paths import PathPlus, TemporaryPathPlus, sort_paths
 from shippinglabel.checksum import check_sha256_hash
 
 # this package
@@ -139,3 +141,49 @@ def test_generate_project_page(advanced_file_regression: AdvancedFileRegressionF
 	check = partial(advanced_file_regression.check, extension=".html")
 	check(str(generate_project_page("Foo.Bar", files, base_url="/simple")))
 	check(str(generate_project_page("Foo.Bar", iter(files), base_url="/simple")))
+
+
+@pytest.mark.usefixtures("fixed_version")
+def test_incremental(
+		wheel_directory: PathPlus,
+		tmp_pathplus: PathPlus,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		monkeypatch,
+		):
+	target = tmp_pathplus / "target"
+
+	make_simple(wheel_directory, target, move=True)
+	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
+
+	# Again, with a different version but nothing else changed
+	# The file should stay the same
+
+	def get_meta_tags(page: Airium):
+		# Not part of the spec, but allowed
+		page.meta(name="generator", content=f"simple503 version 2.0.0")
+		page.meta(charset="UTF-8")
+
+	monkeypatch.setattr("simple503.get_meta_tags", get_meta_tags)
+
+	make_simple(wheel_directory, target, move=True)
+	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
+
+	# Should have changed this time
+
+	with TemporaryPathPlus() as tmpdir:
+		try:
+			shutil.move(
+					str(wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl"),
+					str(tmpdir / "domdf_python_tools-2.6.1-py3-none-any.whl")
+					)
+
+			make_simple(wheel_directory, target, move=True)
+
+			with pytest.raises(AssertionError, match="^FILES DIFFER:"):
+				advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
+
+		finally:
+			shutil.move(
+					str(tmpdir / "domdf_python_tools-2.6.1-py3-none-any.whl"),
+					wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl",
+					)

@@ -28,6 +28,7 @@
 
 # stdlib
 import posixpath
+import re
 import shutil
 from collections import defaultdict
 from html import escape
@@ -137,7 +138,8 @@ def make_simple(
 							)
 					)
 
-	(target / "index.html").write_clean(str(generate_index(projects.keys(), base_url=base_url)))
+	index_content = str(generate_index(projects.keys(), base_url=base_url))
+	_update_file(target / "index.html", index_content)
 
 	for project_name, project_files in projects.items():
 		project_dir = target / normalize(project_name)
@@ -149,7 +151,7 @@ def make_simple(
 				base_url,
 				)
 
-		(project_dir / "index.html").write_clean(str(project_index))
+		_update_file(project_dir / "index.html", str(project_index))
 
 	return projects
 
@@ -318,3 +320,40 @@ def cleanup(directory: PathLike):
 
 		if next(filename.iterdir(), None) is None:
 			filename.rmdir()
+
+
+_minify_re = re.compile(r"\n\s*")
+
+
+def _update_file(filename: PathPlus, new_content: str) -> bool:
+	"""
+	Write ``new_content`` to filename, but only if the content has changed.
+
+	Requires the ``incremental`` extra (``BeautifulSoup`` and ``html5lib``), otherwise always writes.
+
+	.. versionadded:: 0.2.0 (private)
+
+	:param filename:
+	:param new_content:
+
+	:returns: Whether the file was updated on disk.
+	"""
+
+	try:
+		# 3rd party
+		from bs4 import BeautifulSoup as soup  # type: ignore
+	except ImportError:  # pragma: no cover
+		soup = None
+
+	if not filename.exists() or soup is None:
+		filename.write_clean(new_content)
+		return True
+
+	current_soup = soup(_minify_re.sub('', filename.read_text().strip()), "html5lib").body
+	new_soup = soup(_minify_re.sub('', new_content.strip()), "html5lib").body
+
+	if current_soup != new_soup:
+		filename.write_clean(new_content)
+		return True
+
+	return False
