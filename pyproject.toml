@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "simple503"
-version = "0.1.2"
+version = "0.2.0"
 description = "PEP 503 Python package repository generator."
 readme = "README.rst"
 keywords = [ "pep503", "pep658", "pip", "pypi",]
