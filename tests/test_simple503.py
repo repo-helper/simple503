@@ -174,7 +174,7 @@ def test_incremental(
 		try:
 			shutil.move(
 					str(wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl"),
-					str(tmpdir / "domdf_python_tools-2.6.1-py3-none-any.whl")
+					tmpdir / "domdf_python_tools-2.6.1-py3-none-any.whl",
 					)
 
 			make_simple(wheel_directory, target, move=True)
@@ -187,3 +187,48 @@ def test_incremental(
 					str(tmpdir / "domdf_python_tools-2.6.1-py3-none-any.whl"),
 					wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl",
 					)
+
+
+def test_unwanted_dirs(
+		wheel_directory: PathPlus,
+		tmp_pathplus: PathPlus,
+		advanced_data_regression: AdvancedDataRegressionFixture,
+		):
+	target = tmp_pathplus / "target"
+
+	unwanted_a = (wheel_directory / ".tox/wheels/embed")
+	unwanted_a.maybe_make(parents=True)
+
+	unwanted_b = (wheel_directory / "venv/lib/python3.8/site-packages/virtualenv/wheels/embed")
+	unwanted_b.maybe_make(parents=True)
+
+	shutil.move(
+			str(wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl"),
+			unwanted_a / "domdf_python_tools-2.6.1-py3-none-any.whl",
+			)
+	shutil.move(
+			str(wheel_directory / "chardet-4.0.0-py2.py3-none-any.whl"),
+			unwanted_b / "chardet-4.0.0-py2.py3-none-any.whl",
+			)
+
+	try:
+		make_simple(wheel_directory, target)
+
+		origin_content = [p.relative_to(tmp_pathplus) for p in wheel_directory.iterchildren()]
+		target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]
+		advanced_data_regression.check({
+				"origin": sort_paths(*origin_content),
+				"target": sort_paths(*target_content),
+				})
+
+	finally:
+		shutil.move(
+				str(unwanted_a / "domdf_python_tools-2.6.1-py3-none-any.whl"),
+				wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl",
+				)
+		shutil.move(
+				str(unwanted_b / "chardet-4.0.0-py2.py3-none-any.whl"),
+				wheel_directory / "chardet-4.0.0-py2.py3-none-any.whl",
+				)
+		unwanted_a.rmdir()
+		unwanted_b.rmdir()

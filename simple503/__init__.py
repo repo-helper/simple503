@@ -105,7 +105,8 @@ def make_simple(
 
 	projects: Dict[str, List[WheelFile]] = defaultdict(list)
 
-	for wheel_file in origin.rglob("*.whl"):
+	unwanted_dirs = (".git", ".hg", "venv", ".venv", ".tox", ".tox4", ".nox")
+	for wheel_file in origin.iterchildren(exclude_dirs=unwanted_dirs, match="**/*.whl"):
 		target_file = target / wheel_file.relative_to(origin)
 
 		if not target_file.is_file() or not wheel_file.samefile(target_file):
