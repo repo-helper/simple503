@@ -93,6 +93,11 @@ def make_simple(
 	:param move: Move the wheel files into the per-project base directories.
 
 	:returns: A mapping of (unnormalized) project names to a list of wheels for that project.
+
+	.. versionchanged:: 0.2.0
+
+		Now ignores wheels in the following directories: ``.git``, ``.hg``, ``.tox``, ``.tox4``,
+		``.nox``, ``venv``, ``.venv``.
 	"""
 
 	if target is None:

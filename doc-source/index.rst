@@ -124,6 +124,13 @@ Installation
 
 .. end installation
 
+Additionally, if the ``incremental`` extra is installed
+(with e.g. ``python3 -m pip install simple503[incremental]``),
+simple503 won't update pages if the body is unchanged.
+This prevents unnecessary diffs caused by updating the version number in the generator string.
+
+.. versionadded:: 0.2.0
+
 
 Contents
 ------------
