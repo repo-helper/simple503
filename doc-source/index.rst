@@ -58,7 +58,8 @@ simple503
 		:workflow: mypy
 		:alt: mypy status
 
-	.. |requires| requires-io-shield::
+	.. |requires| image:: https://dependency-dash.herokuapp.com/github/repo-helper/simple503/badge.svg
+		:target: https://dependency-dash.herokuapp.com/github/repo-helper/simple503/
 		:alt: Requirements Status
 
 	.. |coveralls| coveralls-shield::
