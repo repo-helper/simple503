@@ -262,9 +262,6 @@ def generate_project_page(name: str, files: Iterable[WheelFile], base_url: Union
 		For example, with PyPI's URL, a URL of /foo/ would be https://pypi.org/simple/foo/.
 	"""
 
-	# this package
-	from simple503 import __version__
-
 	name = normalize(name)
 	base_url = URL(base_url)
 	page = Airium()
