@@ -9,6 +9,8 @@ simple503
 
 .. end short_desc
 
+Not affected by :issue:`10825 <pypa/pip>`
+
 .. start shields
 
 .. only:: html
