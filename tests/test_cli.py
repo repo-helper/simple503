@@ -94,7 +94,7 @@ def test_index_page(
 
 	advanced_file_regression.check_file(wheel_directory / "index.html")
 
-	soup = BeautifulSoup((wheel_directory / "index.html").read_text(), "html5lib")
+	soup = BeautifulSoup((wheel_directory / "index.html").read_text(), "html.parser")
 
 	all_anchors = soup.findAll('a')
 	assert len(all_anchors) == 39
@@ -119,7 +119,7 @@ def test_project_page(
 
 	advanced_file_regression.check_file(wheel_directory / "domdf-python-tools" / "index.html")
 
-	soup = BeautifulSoup((wheel_directory / "domdf-python-tools" / "index.html").read_text(), "html5lib")
+	soup = BeautifulSoup((wheel_directory / "domdf-python-tools" / "index.html").read_text(), "html.parser")
 
 	all_anchors = soup.findAll('a')
 	assert len(all_anchors) == 14

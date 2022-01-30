@@ -352,8 +352,8 @@ def _update_file(filename: PathPlus, new_content: str) -> bool:
 		filename.write_clean(new_content)
 		return True
 
-	current_soup = soup(_minify_re.sub('', filename.read_text().strip()), "html5lib").body
-	new_soup = soup(_minify_re.sub('', new_content.strip()), "html5lib").body
+	current_soup = soup(_minify_re.sub('', filename.read_text().strip()), "html.parser").body
+	new_soup = soup(_minify_re.sub('', new_content.strip()), "html.parser").body
 
 	if current_soup != new_soup:
 		filename.write_clean(new_content)
