@@ -33,7 +33,7 @@ import shutil
 from collections import defaultdict
 from html import escape
 from operator import attrgetter
-from typing import Callable, TYPE_CHECKING, Dict, Iterable, List, NamedTuple, Optional, Union
+from typing import TYPE_CHECKING, Callable, Dict, Iterable, List, NamedTuple, Optional, Union
 
 # 3rd party
 from airium import Airium  # type: ignore
