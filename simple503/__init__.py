@@ -33,7 +33,7 @@ import shutil
 from collections import defaultdict
 from html import escape
 from operator import attrgetter
-from typing import TYPE_CHECKING, Dict, Iterable, List, NamedTuple, Optional, Union
+from typing import Callable, TYPE_CHECKING, Dict, Iterable, List, NamedTuple, Optional, Union
 
 # 3rd party
 from airium import Airium  # type: ignore
@@ -79,7 +79,8 @@ def make_simple(
 		target: Optional[PathLike] = None,
 		base_url: Union[str, URL] = '/',
 		*,
-		move: bool = False,
+		sort: bool = False,
+		copy: bool = False,
 		) -> Dict[str, List["WheelFile"]]:
 	"""
 	Generate a simple repository of Python wheels.
@@ -90,7 +91,8 @@ def make_simple(
 		Defaults to ``origin``.
 	:no-default target:
 	:param base_url: The base URL of the simple repository.
-	:param move: Move the wheel files into the per-project base directories.
+	:param sort: Sort the wheel files into per-project base directories.
+	:param copy: Copy files from the source to the destination, rather than moving them.
 
 	:returns: A mapping of (unnormalized) project names to a list of wheels for that project.
 
@@ -98,6 +100,11 @@ def make_simple(
 
 		Now ignores wheels in the following directories: ``.git``, ``.hg``, ``.tox``, ``.tox4``,
 		``.nox``, ``venv``, ``.venv``.
+
+	.. versionchanged:: 0.3.0
+
+		* Renamed the ``move`` option to ``sort`` to better reflect its behaviour.
+		* Files are moved to the destination by default, unless the ``copy`` option is :py:obj:`True`.
 	"""
 
 	if target is None:
@@ -110,12 +117,11 @@ def make_simple(
 
 	projects: Dict[str, List[WheelFile]] = defaultdict(list)
 
+	move_operation: Callable = shutil.copyfile if copy else shutil.move  # type: ignore[assignment]
+
 	unwanted_dirs = (".git", ".hg", "venv", ".venv", ".tox", ".tox4", ".nox")
 	for wheel_file in origin.iterchildren(exclude_dirs=unwanted_dirs, match="**/*.whl"):
 		target_file = target / wheel_file.relative_to(origin)
-
-		if not target_file.is_file() or not wheel_file.samefile(target_file):
-			shutil.copy2(wheel_file, target_file)
 
 		with distributions.WheelDistribution.from_path(wheel_file) as wd:
 			if not wd.has_file("METADATA"):  # pragma: no cover
@@ -124,13 +130,21 @@ def make_simple(
 			metadata_string = wd.read_file("METADATA")
 			wheel_metadata = metadata.loads(metadata_string)
 
-			if move:
+			if sort:
 				# Move to the appropriate directory
 				project_dir = target / normalize(wheel_metadata["Name"])
 				project_dir.maybe_make()
 				if wheel_file.relative_to(origin).parts[0] != project_dir.parts[-1]:
-					shutil.move(target_file, project_dir / wheel_file.relative_to(origin))  # type: ignore
-					target_file = project_dir / wheel_file.relative_to(origin)
+					destination = project_dir / wheel_file.name
+					destination.parent.maybe_make(parents=True)
+					move_operation(wheel_file, destination)
+					target_file = destination
+
+			else:
+				if not target_file.is_file() or not wheel_file.samefile(target_file):
+					# note: will not overwrite files with the same name, even if the source file changed
+					target_file.parent.maybe_make(parents=True)
+					move_operation(wheel_file, target_file)
 
 			metadata_filename = target_file.with_suffix(f"{target_file.suffix}.metadata")
 			metadata_filename.write_text(metadata_string)

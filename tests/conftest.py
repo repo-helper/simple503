@@ -12,8 +12,9 @@ _original_wheel_directory = PathPlus(__file__).parent / "wheels"
 
 @pytest.fixture()
 def wheel_directory(tmp_pathplus) -> PathPlus:
-	shutil.copytree(_original_wheel_directory, tmp_pathplus / "origin")
-	return tmp_pathplus / "origin"
+	wheel_dir = tmp_pathplus / "origin"
+	shutil.copytree(_original_wheel_directory, wheel_dir)
+	return wheel_dir
 
 
 @pytest.fixture()

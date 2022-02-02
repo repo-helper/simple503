@@ -10,7 +10,7 @@ simple503
 
 
 ``simple503`` generates a static, `PEP 503`_ simple repository of Python distributions.
-It takes a directory of Python `wheels`_ and generates the necessary directories and ``index.html`` files and.
+It takes a directory of Python `wheels`_ and generates the necessary directories and ``index.html`` files.
 The source directory can optionally be pre-sorted by project name, or ``simple503`` can do this for you.
 
 An example repository can be seen at https://repo-helper.uk/simple503/

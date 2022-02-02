@@ -1,5 +1,6 @@
 # stdlib
 import hashlib
+import os
 import shutil
 from functools import partial
 
@@ -38,14 +39,16 @@ def test_inplace_explicit_same_target(
 	advanced_data_regression.check(sort_paths(*dir_content))
 
 
+@pytest.mark.parametrize("copy", [True, False])
 def test_to_target(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
 		advanced_data_regression: AdvancedDataRegressionFixture,
+		copy: bool,
 		):
 	target = tmp_pathplus / "target"
 
-	make_simple(wheel_directory, target)
+	make_simple(wheel_directory, target, copy=copy)
 
 	origin_content = [p.relative_to(tmp_pathplus) for p in wheel_directory.iterchildren()]
 	target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]
@@ -56,7 +59,7 @@ def test_to_target(
 
 
 @pytest.mark.usefixtures("fixed_version")
-def test_to_target_move(
+def test_to_target_sort(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
 		advanced_data_regression: AdvancedDataRegressionFixture,
@@ -64,9 +67,59 @@ def test_to_target_move(
 		):
 	target = tmp_pathplus / "target"
 
-	make_simple(wheel_directory, target, move=True)
+	make_simple(wheel_directory, target, sort=True)
 
 	origin_content = [p.relative_to(tmp_pathplus) for p in wheel_directory.iterchildren()]
+	target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]
+	advanced_data_regression.check({
+			"origin": sort_paths(*origin_content),
+			"target": sort_paths(*target_content),
+			})
+
+	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
+
+
+@pytest.mark.usefixtures("fixed_version")
+def test_to_target_sort_subdirs(
+		wheel_directory: PathPlus,
+		tmp_pathplus: PathPlus,
+		advanced_data_regression: AdvancedDataRegressionFixture,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		):
+	target = tmp_pathplus / "target"
+
+	base_subdir = tmp_pathplus / "subdir1"
+	with_subdirs = base_subdir.joinpath("subdir2", "subdir3")
+	shutil.copytree(wheel_directory, with_subdirs)
+
+	make_simple(base_subdir, target, sort=True)
+
+	origin_content = [p.relative_to(tmp_pathplus) for p in base_subdir.iterchildren()]
+	target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]
+	advanced_data_regression.check({
+			"origin": sort_paths(*origin_content),
+			"target": sort_paths(*target_content),
+			})
+
+	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
+
+
+@pytest.mark.usefixtures("fixed_version")
+def test_to_target_no_copy_subdirs(
+		wheel_directory: PathPlus,
+		tmp_pathplus: PathPlus,
+		advanced_data_regression: AdvancedDataRegressionFixture,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		):
+	target = tmp_pathplus / "target"
+
+	base_subdir = tmp_pathplus / "subdir1"
+	with_subdirs = base_subdir.joinpath("subdir2", "subdir3")
+	shutil.copytree(wheel_directory, with_subdirs)
+
+	make_simple(base_subdir, target)
+
+	origin_content = [p.relative_to(tmp_pathplus) for p in base_subdir.iterchildren()]
 	target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]
 	advanced_data_regression.check({
 			"origin": sort_paths(*origin_content),
@@ -150,9 +203,10 @@ def test_incremental(
 		advanced_file_regression: AdvancedFileRegressionFixture,
 		monkeypatch,
 		):
+
 	target = tmp_pathplus / "target"
 
-	make_simple(wheel_directory, target, move=True)
+	make_simple(wheel_directory, target, sort=True)
 	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
 
 	# Again, with a different version but nothing else changed
@@ -165,34 +219,24 @@ def test_incremental(
 
 	monkeypatch.setattr("simple503.get_meta_tags", get_meta_tags)
 
-	make_simple(wheel_directory, target, move=True)
+	make_simple(target, target, sort=True)
 	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
 
 	# Should have changed this time
+	(target / "domdf-python-tools" / "domdf_python_tools-2.6.1-py3-none-any.whl").unlink()
 
-	with TemporaryPathPlus() as tmpdir:
-		try:
-			shutil.move(
-					str(wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl"),
-					tmpdir / "domdf_python_tools-2.6.1-py3-none-any.whl",
-					)
+	make_simple(target, target, sort=True)
 
-			make_simple(wheel_directory, target, move=True)
-
-			with pytest.raises(AssertionError, match="^FILES DIFFER:"):
-				advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
-
-		finally:
-			shutil.move(
-					str(tmpdir / "domdf_python_tools-2.6.1-py3-none-any.whl"),
-					wheel_directory / "domdf_python_tools-2.6.1-py3-none-any.whl",
-					)
+	with pytest.raises(AssertionError, match="^FILES DIFFER:"):
+		advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
 
 
+@pytest.mark.parametrize("copy", [True, False])
 def test_unwanted_dirs(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
 		advanced_data_regression: AdvancedDataRegressionFixture,
+		copy: bool,
 		):
 	target = tmp_pathplus / "target"
 
@@ -212,7 +256,7 @@ def test_unwanted_dirs(
 			)
 
 	try:
-		make_simple(wheel_directory, target)
+		make_simple(wheel_directory, target, copy=copy)
 
 		origin_content = [p.relative_to(tmp_pathplus) for p in wheel_directory.iterchildren()]
 		target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]

@@ -1,5 +1,9 @@
+# stdlib
+import shutil
+
 # 3rd party
 import pytest
+from airium import Airium  # type: ignore
 from apeye import URL
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence.regressions import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
@@ -40,14 +44,19 @@ def test_inplace_explicit_same_target(
 	advanced_data_regression.check(sort_paths(*dir_content))
 
 
+@pytest.mark.parametrize("copy", [True, False])
 def test_to_target(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
 		advanced_data_regression: AdvancedDataRegressionFixture,
+		copy: bool,
 		cli_runner: CliRunner,
 		):
 	target = tmp_pathplus / "target"
-	result = cli_runner.invoke(main, args=[wheel_directory.as_posix(), target.as_posix()])
+	args = [wheel_directory.as_posix(), target.as_posix()]
+	if copy:
+		args.append("--copy")
+	result = cli_runner.invoke(main, args=args)
 	assert result.exit_code == 0
 	assert not result.stdout
 
@@ -60,7 +69,7 @@ def test_to_target(
 
 
 @pytest.mark.usefixtures("fixed_version")
-def test_to_target_move(
+def test_to_target_sort(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
 		advanced_data_regression: AdvancedDataRegressionFixture,
@@ -68,11 +77,39 @@ def test_to_target_move(
 		cli_runner: CliRunner,
 		):
 	target = tmp_pathplus / "target"
-	result = cli_runner.invoke(main, args=[wheel_directory.as_posix(), target.as_posix(), "--move"])
+	result = cli_runner.invoke(main, args=[wheel_directory.as_posix(), target.as_posix(), "--sort"])
 	assert result.exit_code == 0
 	assert not result.stdout
 
 	origin_content = [p.relative_to(tmp_pathplus) for p in wheel_directory.iterchildren()]
+	target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]
+	advanced_data_regression.check({
+			"origin": sort_paths(*origin_content),
+			"target": sort_paths(*target_content),
+			})
+
+	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
+
+
+@pytest.mark.usefixtures("fixed_version")
+def test_to_target_sort_subdirs(
+		wheel_directory: PathPlus,
+		tmp_pathplus: PathPlus,
+		advanced_data_regression: AdvancedDataRegressionFixture,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		cli_runner: CliRunner,
+		):
+	target = tmp_pathplus / "target"
+
+	base_subdir = tmp_pathplus / "subdir1"
+	with_subdirs = base_subdir.joinpath("subdir2", "subdir3")
+	shutil.copytree(wheel_directory, with_subdirs)
+
+	result = cli_runner.invoke(main, args=[base_subdir.as_posix(), target.as_posix(), "--sort"])
+	assert result.exit_code == 0
+	assert not result.stdout
+
+	origin_content = [p.relative_to(tmp_pathplus) for p in base_subdir.iterchildren()]
 	target_content = [p.relative_to(tmp_pathplus) for p in target.iterchildren()]
 	advanced_data_regression.check({
 			"origin": sort_paths(*origin_content),
