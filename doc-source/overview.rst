@@ -81,7 +81,7 @@ After running ``simple503 ./simple`` the directory looks like::
 ``simple503`` has created a directory for each project, and within that directory has created an ``index.html`` containing a list of wheels for that project.
 A top-level ``index.html`` file has also been created, which lists all available projects.
 
-``simple503`` can also be run with the :option:`--move <simple503 --move>` option, which will move the wheels into the appropriate project directory::
+``simple503`` can also be run with the :option:`--sort <simple503 --sort>` option, which will move the wheels into the appropriate project directory::
 
 	simple
 	├── alabaster
