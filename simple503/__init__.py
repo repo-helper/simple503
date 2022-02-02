@@ -130,33 +130,33 @@ def make_simple(
 			metadata_string = wd.read_file("METADATA")
 			wheel_metadata = metadata.loads(metadata_string)
 
-			if sort:
-				# Move to the appropriate directory
-				project_dir = target / normalize(wheel_metadata["Name"])
-				project_dir.maybe_make()
-				if wheel_file.relative_to(origin).parts[0] != project_dir.parts[-1]:
-					destination = project_dir / wheel_file.name
-					destination.parent.maybe_make(parents=True)
-					move_operation(wheel_file, destination)
-					target_file = destination
+		if sort:
+			# Move to the appropriate directory
+			project_dir = target / normalize(wheel_metadata["Name"])
+			project_dir.maybe_make()
+			if wheel_file.relative_to(origin).parts[0] != project_dir.parts[-1]:
+				destination = project_dir / wheel_file.name
+				destination.parent.maybe_make(parents=True)
+				move_operation(wheel_file, destination)
+				target_file = destination
 
-			else:
-				if not target_file.is_file() or not wheel_file.samefile(target_file):
-					# note: will not overwrite files with the same name, even if the source file changed
-					target_file.parent.maybe_make(parents=True)
-					move_operation(wheel_file, target_file)
+		else:
+			if not target_file.is_file() or not wheel_file.samefile(target_file):
+				# note: will not overwrite files with the same name, even if the source file changed
+				target_file.parent.maybe_make(parents=True)
+				move_operation(wheel_file, target_file)
 
-			metadata_filename = target_file.with_suffix(f"{target_file.suffix}.metadata")
-			metadata_filename.write_text(metadata_string)
+		metadata_filename = target_file.with_suffix(f"{target_file.suffix}.metadata")
+		metadata_filename.write_text(metadata_string)
 
-			projects[wheel_metadata["Name"]].append(
-					WheelFile(
-							filename=target_file.relative_to(target).as_posix(),
-							wheel_hash=get_sha256_hash(target_file),
-							requires_python=wheel_metadata.get("Requires-Python"),
-							metadata_hash=get_sha256_hash(metadata_filename),
-							)
-					)
+		projects[wheel_metadata["Name"]].append(
+				WheelFile(
+						filename=target_file.relative_to(target).as_posix(),
+						wheel_hash=get_sha256_hash(target_file),
+						requires_python=wheel_metadata.get("Requires-Python"),
+						metadata_hash=get_sha256_hash(metadata_filename),
+						)
+				)
 
 	index_content = str(generate_index(projects.keys(), base_url=base_url))
 	_update_file(target / "index.html", index_content)
