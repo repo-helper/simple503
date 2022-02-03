@@ -80,3 +80,5 @@ def setup(app):
 nitpicky = True
 ignore_missing_xrefs = ["^airium.*"]
 autosummary_col_type = "\\Xx"
+toml_spec_version = "0.5.0"
+toctree_plus_types.add("tconf")

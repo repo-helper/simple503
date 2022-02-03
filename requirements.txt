@@ -4,6 +4,7 @@ click>=8.0.1
 consolekit>=1.2.2
 dataclasses>=0.8; python_version == "3.6"
 dist-meta>=0.1.0
+dom-toml>=0.5.1
 domdf-python-tools>=2.9.1
 natsort>=7.1.1
 shippinglabel>=0.15.0

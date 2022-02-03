@@ -35,6 +35,8 @@ sphinx_conf_epilogue:
  - nitpicky = True
  - ignore_missing_xrefs = ["^airium.*"]
  - autosummary_col_type = "\\Xx"
+ - toml_spec_version = "0.5.0"
+ - toctree_plus_types.add("tconf")
 
 console_scripts:
  - simple503 = simple503.__main__:main
@@ -45,6 +47,7 @@ extra_sphinx_extensions:
  - sphinx_toolbox_experimental.peps
  - sphinx_toolbox_experimental.missing_xref
  - local_extension
+ - sphinx_packaging
 
 classifiers:
  - 'Development Status :: 3 - Alpha'
