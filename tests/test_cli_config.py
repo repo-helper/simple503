@@ -1,9 +1,8 @@
 # stdlib
 import shutil
-
-# 3rd party
 from typing import Any, Dict
 
+# 3rd party
 import dom_toml
 import pytest
 from airium import Airium  # type: ignore
