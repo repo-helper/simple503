@@ -100,7 +100,7 @@ An example repository can be seen at https://repo-helper.uk/simple503/
 .. |language| image:: https://img.shields.io/github/languages/top/repo-helper/simple503
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/repo-helper/simple503/v0.2.0
+.. |commits-since| image:: https://img.shields.io/github/commits-since/repo-helper/simple503/v0.3.0
 	:target: https://github.com/repo-helper/simple503/pulse
 	:alt: GitHub commits since tagged version
 
