@@ -33,7 +33,7 @@ from typing import Any, ClassVar, Dict, List, Optional, cast
 from dom_toml.parser import TOML_TYPES, AbstractConfigParser
 from typing_extensions import TypedDict
 
-__all__ = ["Simple503ConfigParser"]
+__all__ = ["ConfigDict", "Simple503ConfigParser"]
 
 ConfigDict = TypedDict("ConfigDict", {
 		"base-url": str,
@@ -41,11 +41,18 @@ ConfigDict = TypedDict("ConfigDict", {
 		"copy": bool,
 		"target": Optional[str],
 		})
+"""
+:class:`typing.TypedDict` representing the parsed configuration.
+
+.. versionadded:: 0.3.0
+"""
 
 
 class Simple503ConfigParser(AbstractConfigParser):
 	"""
 	Parser for ``simple503.toml``.
+
+	.. versionadded:: 0.3.0
 	"""
 
 	#: The list of keys parsed from ``pyproject.toml``

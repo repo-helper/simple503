@@ -13,6 +13,10 @@ simple503
 
 TARGET defaults to ORIGIN, in which case the index files are generated inplace.
 
+.. versionchanged:: 0.3.0
+
+	Added the :option:`--copy <-c>`, :option:`--sort <-s>`, :option:`--config` options, and removed the ``--move`` option.
+
 
 Configuration File
 --------------------
@@ -38,7 +42,6 @@ the The configuration should be placed in the ``simple503`` table, and the follo
 		base-url = "/simple"
 
 
-
 .. tconf:: simple503.target
 	:type: :toml:`String`
 
@@ -52,7 +55,6 @@ the The configuration should be placed in the ``simple503`` table, and the follo
 		target = "."
 
 
-
 .. tconf:: simple503.sort
 	:type: :toml:`Boolean`
 
@@ -64,7 +66,6 @@ the The configuration should be placed in the ``simple503`` table, and the follo
 
 		[simple503]
 		sort = true
-
 
 
 .. tconf:: simple503.copy
