@@ -85,6 +85,7 @@ def test_to_target(
 			})
 
 
+@pytest.mark.usefixtures("fixed_version")
 def test_base_url(
 		wheel_directory: PathPlus,
 		tmp_pathplus: PathPlus,
