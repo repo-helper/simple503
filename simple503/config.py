@@ -35,17 +35,18 @@ from typing_extensions import TypedDict
 
 __all__ = ["ConfigDict", "Simple503ConfigParser"]
 
-ConfigDict = TypedDict("ConfigDict", {
-		"base_url": str,
-		"sort": bool,
-		"copy": bool,
-		"target": Optional[str],
-		})
-"""
-:class:`typing.TypedDict` representing the parsed configuration.
 
-.. versionadded:: 0.3.0
-"""
+class ConfigDict(TypedDict):
+	"""
+	:class:`typing.TypedDict` representing the parsed configuration.
+
+	.. versionadded:: 0.3.0
+	"""
+
+	base_url: str
+	sort: bool
+	copy: bool
+	target: Optional[str]
 
 
 class Simple503ConfigParser(AbstractConfigParser):
