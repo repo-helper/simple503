@@ -1,0 +1,4 @@
+[simple503]
+base-url = "/simple503"
+sort = true
+target = "."
