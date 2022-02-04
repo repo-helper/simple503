@@ -1,4 +1,4 @@
-base-url: /simple
+base_url: /simple
 copy: false
 sort: false
 target: .

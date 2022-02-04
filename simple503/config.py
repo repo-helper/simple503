@@ -36,7 +36,7 @@ from typing_extensions import TypedDict
 __all__ = ["ConfigDict", "Simple503ConfigParser"]
 
 ConfigDict = TypedDict("ConfigDict", {
-		"base-url": str,
+		"base_url": str,
 		"sort": bool,
 		"copy": bool,
 		"target": Optional[str],
@@ -164,4 +164,8 @@ class Simple503ConfigParser(AbstractConfigParser):
 			will be set as defaults for the returned mapping.
 		"""
 
-		return cast(ConfigDict, super().parse(config, set_defaults=set_defaults))
+		parsed_config = super().parse(config, set_defaults=set_defaults)
+		if "base-url" in parsed_config:
+			parsed_config["base_url"] = parsed_config.pop("base-url")
+
+		return cast(ConfigDict, parsed_config)

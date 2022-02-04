@@ -85,6 +85,31 @@ def test_to_target(
 			})
 
 
+def test_base_url(
+		wheel_directory: PathPlus,
+		tmp_pathplus: PathPlus,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		cli_runner: CliRunner,
+		):
+
+	target = tmp_pathplus / "target"
+	config: Dict[str, Dict[str, Any]] = {
+			"simple503": {"target": target.as_posix(), "base-url": "/wheelhouse"},
+			}
+
+	args = [wheel_directory.as_posix()]
+
+	dom_toml.dump(config, (tmp_pathplus / "simple503.toml"))
+
+	with in_directory(tmp_pathplus):
+		result = cli_runner.invoke(main, args=args)
+
+	assert result.exit_code == 0
+	assert not result.stdout
+
+	advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
+
+
 @pytest.mark.usefixtures("fixed_version")
 def test_to_target_sort(
 		wheel_directory: PathPlus,

@@ -227,7 +227,7 @@ def test_incremental(
 
 	make_simple(target, target, sort=True)
 
-	with pytest.raises(AssertionError, match="^FILES DIFFER:"):
+	with pytest.raises(AssertionError, match="(?i)^FILES DIFFER:"):
 		advanced_file_regression.check_file(target / "domdf-python-tools" / "index.html")
 
 
