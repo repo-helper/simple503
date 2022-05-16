@@ -36,6 +36,7 @@ sphinx_conf_epilogue:
  - ignore_missing_xrefs = ["^airium.*"]
  - autosummary_col_type = "\\Xx"
  - toml_spec_version = "0.5.0"
+ - needspace_amount = r"5\baselineskip"
  - toctree_plus_types.add("tconf")
 
 console_scripts:
@@ -43,11 +44,9 @@ console_scripts:
 
 extra_sphinx_extensions:
  - sphinx_click
- - sphinx_toolbox_experimental.needspace
- - sphinx_toolbox_experimental.peps
+ - sphinx_packaging
  - sphinx_toolbox_experimental.missing_xref
  - local_extension
- - sphinx_packaging
 
 classifiers:
  - 'Development Status :: 3 - Alpha'

@@ -81,4 +81,5 @@ nitpicky = True
 ignore_missing_xrefs = ["^airium.*"]
 autosummary_col_type = "\\Xx"
 toml_spec_version = "0.5.0"
+needspace_amount = r"5\baselineskip"
 toctree_plus_types.add("tconf")
