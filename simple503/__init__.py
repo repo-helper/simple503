@@ -304,6 +304,7 @@ def generate_project_page(name: str, files: Iterable[WheelFile], base_url: Union
 def get_meta_tags(page: Airium):
 	# Not part of the spec, but allowed
 	page.meta(name="generator", content=f"simple503 version {__version__}")
+	page.meta(name="pypi:repository-version", content="1.0")
 	page.meta(charset="UTF-8")
 
 
