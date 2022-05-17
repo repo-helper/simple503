@@ -24,7 +24,8 @@ def fixed_version(monkeypatch):
 
 	def get_meta_tags(page: Airium):
 		# Not part of the spec, but allowed
-		page.meta(name="generator", content=f"simple503 version 0.0.0")
+		page.meta(name="generator", content="simple503 version 0.0.0")
+		page.meta(name="pypi:repository-version", content="1.0")
 		page.meta(charset="UTF-8")
 
 	monkeypatch.setattr("simple503.get_meta_tags", get_meta_tags)
