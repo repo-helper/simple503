@@ -129,6 +129,8 @@ Installation
 
 .. end installation
 
+.. latex:vspace:: 20px
+
 Additionally, if the ``incremental`` extra is installed
 (with e.g. ``python3 -m pip install simple503[incremental]``),
 simple503 won't update pages if the body is unchanged.
