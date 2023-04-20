@@ -40,7 +40,7 @@ from domdf_python_tools.typing import PathLike
 __all__ = ["main"]
 
 
-def _configure(ctx, _, filename):
+def _configure(ctx: click.Context, _, filename: PathLike) -> None:
 	# 3rd party
 	import dom_toml
 
@@ -95,7 +95,7 @@ def main(
 		sort: bool = False,
 		copy: bool = False,
 		cleanup: bool = False,
-		):
+		) -> None:
 	"""
 	Generate a PEP 503 Python package repository in TARGET for the wheels in ORIGIN.
 	"""

@@ -8,5 +8,5 @@ from pytest_regressions.data_regression import RegressionYamlDumper
 
 
 @_representer_for(pathlib.PurePath, pathlib.Path, PathPlus)
-def _represent_sequences(dumper: RegressionYamlDumper, data: pathlib.PurePath):
+def _represent_sequences(dumper: RegressionYamlDumper, data: pathlib.PurePath):  # noqa: MAN002
 	return dumper.represent_data(data.as_posix())

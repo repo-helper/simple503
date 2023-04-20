@@ -1,6 +1,5 @@
 # stdlib
 import hashlib
-import os
 import shutil
 from functools import partial
 
@@ -10,7 +9,7 @@ from airium import Airium  # type: ignore
 from apeye import URL
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
-from domdf_python_tools.paths import PathPlus, TemporaryPathPlus, sort_paths
+from domdf_python_tools.paths import PathPlus, sort_paths
 from shippinglabel.checksum import check_sha256_hash
 
 # this package
@@ -212,7 +211,7 @@ def test_incremental(
 	# Again, with a different version but nothing else changed
 	# The file should stay the same
 
-	def get_meta_tags(page: Airium):
+	def get_meta_tags(page: Airium) -> None:
 		# Not part of the spec, but allowed
 		page.meta(name="generator", content=f"simple503 version 2.0.0")
 		page.meta(charset="UTF-8")

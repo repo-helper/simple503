@@ -3,7 +3,6 @@ import shutil
 
 # 3rd party
 import pytest
-from airium import Airium  # type: ignore
 from apeye import URL
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence.regressions import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture

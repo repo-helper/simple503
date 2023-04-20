@@ -5,8 +5,6 @@ from typing import Any, Dict
 # 3rd party
 import dom_toml
 import pytest
-from airium import Airium  # type: ignore
-from bs4 import BeautifulSoup  # type: ignore
 from coincidence.regressions import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
 from consolekit.testing import CliRunner
 from domdf_python_tools.paths import PathPlus, in_directory, sort_paths
