@@ -1,4 +1,5 @@
 base_url: /simple
 copy: false
+extract_metadata: true
 sort: true
 target: null

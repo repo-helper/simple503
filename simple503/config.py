@@ -62,6 +62,7 @@ class Simple503ConfigParser(AbstractConfigParser):
 			"sort",
 			"copy",
 			"target",
+			"extract_metadata",
 			]
 
 	defaults: ClassVar[Dict[str, Any]] = {
@@ -69,6 +70,7 @@ class Simple503ConfigParser(AbstractConfigParser):
 			"copy": False,
 			"base-url": '/',
 			"target": None,
+			"extract_metadata": True,
 			}
 
 	def parse_base_url(self, config: Dict[str, TOML_TYPES]) -> str:
@@ -130,6 +132,26 @@ class Simple503ConfigParser(AbstractConfigParser):
 		sort = config["sort"]
 		self.assert_type(sort, bool, ["simple503", "sort"])
 		return sort
+
+	def parse_extract_metadata(self, config: Dict[str, TOML_TYPES]) -> str:
+		"""
+		Parse the ``extract_metadata`` key.
+
+		**Format**: :toml:`Boolean`
+
+		:bold-title:`Example:`
+
+		.. code-block:: TOML
+
+			[simple503]
+			extract_metadata = false
+
+		:param config: The unparsed TOML config for the ``simple503`` table.
+		"""
+
+		extract_metadata = config["extract_metadata"]
+		self.assert_type(extract_metadata, bool, ["simple503", "extract_metadata"])
+		return extract_metadata
 
 	def parse_copy(self, config: Dict[str, TOML_TYPES]) -> str:
 		"""

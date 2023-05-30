@@ -19,6 +19,10 @@ from simple503.config import Simple503ConfigParser
 				pytest.param("[simple503]\nbase-url = '/simple'\nsort = false", id="base-url_sort_false"),
 				pytest.param("[simple503]\nbase-url = '/simple'\ncopy = false", id="base-url_copy_false"),
 				pytest.param(
+						"[simple503]\nbase-url = '/simple'\ncopy = false\nextract_metadata = false",
+						id="base-url_copy_false_no_extract",
+						),
+				pytest.param(
 						"[simple503]\nbase-url = '/simple'\nsort = true\ncopy = true", id="base-url_sort_copy"
 						),
 				pytest.param("[simple503]\nbase-url = '/simple'\ntarget = '.'", id="target"),
@@ -64,6 +68,14 @@ def test_correct(config: str, advanced_data_regression: AdvancedDataRegressionFi
 								"Invalid type for 'simple503.copy': expected <class 'bool'>, got <class 'str'>$"
 								),
 						id="base-url_copy_string"
+						),
+				pytest.param(
+						"[simple503]\nbase-url = '/simple'\nextract_metadata = 'false'",
+						(
+								TypeError,
+								"Invalid type for 'simple503.extract_metadata': expected <class 'bool'>, got <class 'str'>$"
+								),
+						id="base-url_extract_metadata_string"
 						),
 				]
 		)

@@ -79,6 +79,12 @@ def _configure(ctx: click.Context, _, filename: PathLike) -> None:
 		"--sort/--no-sort",
 		help="Sort the wheel files into per-project base directories.",
 		)
+@flag_option(
+		"-e/-E",
+		"--extract-metadata/--no-extract-metadata",
+		help="Extract and serve METADATA files per PEP 658",
+		default=True
+		)
 @auto_default_option(
 		"-B",
 		"--base-url",
@@ -94,6 +100,7 @@ def main(
 		target: Optional[PathLike] = None,
 		base_url: str = '/',
 		sort: bool = False,
+		extract_metadata: bool = True,
 		copy: bool = False,
 		cleanup: bool = False,
 		) -> None:
@@ -111,7 +118,7 @@ def main(
 		# this package
 		from simple503 import make_simple
 
-		make_simple(origin, target, base_url=base_url, sort=sort, copy=copy)
+		make_simple(origin, target, base_url=base_url, sort=sort, copy=copy, extract_metadata=extract_metadata)
 
 
 if __name__ == "__main__":

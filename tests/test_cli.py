@@ -182,3 +182,39 @@ def test_project_page(
 		check_sha256_hash(metadata_file, hash_value)
 
 		assert anchor["data-requires-python"] in {">=3.6.1", ">=3.6"}
+
+
+@pytest.mark.usefixtures("fixed_version")
+def test_project_page_no_metadata(
+		wheel_directory: PathPlus,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		cli_runner: CliRunner,
+		):
+	result = cli_runner.invoke(main, args=[wheel_directory.as_posix(), "--no-extract-metadata"])
+	assert result.exit_code == 0
+	assert not result.stdout
+
+	advanced_file_regression.check_file(wheel_directory / "domdf-python-tools" / "index.html")
+
+	soup = BeautifulSoup((wheel_directory / "domdf-python-tools" / "index.html").read_text(), "html.parser")
+
+	all_anchors = soup.findAll('a')
+	assert len(all_anchors) == 14
+
+	for anchor in all_anchors:
+		href = URL(anchor["href"])
+		file = wheel_directory / href.path.name
+		assert file.name.startswith("domdf_python_tools")
+		assert file.suffix == ".whl"
+
+		assert href.fragment is not None
+		hash_name, hash_value = href.fragment.split('=', 1)
+		assert hash_name == "sha256"
+		check_sha256_hash(file, hash_value)
+
+		metadata_file = file.with_suffix(f"{file.suffix}.metadata")
+		assert metadata_file.suffix == ".metadata"
+		assert not metadata_file.exists()
+		assert "data-dist-info-metadata" not in anchor
+
+		assert anchor["data-requires-python"] in {">=3.6.1", ">=3.6"}

@@ -81,6 +81,7 @@ def make_simple(
 		*,
 		sort: bool = False,
 		copy: bool = False,
+		extract_metadata: bool = True,
 		) -> Dict[str, List["WheelFile"]]:
 	"""
 	Generate a simple repository of Python wheels.
@@ -93,6 +94,7 @@ def make_simple(
 	:param base_url: The base URL of the simple repository.
 	:param sort: Sort the wheel files into per-project base directories.
 	:param copy: Copy files from the source to the destination, rather than moving them.
+	:param extract_metadata: Extract and serve METADATA files per :pep:`658`.
 
 	:returns: A mapping of (unnormalized) project names to a list of wheels for that project.
 
@@ -105,6 +107,8 @@ def make_simple(
 
 		* Renamed the ``move`` option to ``sort`` to better reflect its behaviour.
 		* Files are moved to the destination by default, unless the ``copy`` option is :py:obj:`True`.
+
+	.. versionchanged:: 0.4.0  Added the ``extract_metadata`` option.
 	"""
 
 	if target is None:
@@ -146,15 +150,20 @@ def make_simple(
 				target_file.parent.maybe_make(parents=True)
 				move_operation(wheel_file, target_file)
 
-		metadata_filename = target_file.with_suffix(f"{target_file.suffix}.metadata")
-		metadata_filename.write_text(metadata_string)
+		if extract_metadata:
+			metadata_filename = target_file.with_suffix(f"{target_file.suffix}.metadata")
+			metadata_filename.write_text(metadata_string)
+			metadata_hash = get_sha256_hash(metadata_filename)
+
+		else:
+			metadata_hash = None
 
 		projects[wheel_metadata["Name"]].append(
 				WheelFile(
 						filename=target_file.relative_to(target).as_posix(),
 						wheel_hash=get_sha256_hash(target_file),
 						requires_python=wheel_metadata.get("Requires-Python"),
-						metadata_hash=get_sha256_hash(metadata_filename),
+						metadata_hash=metadata_hash,
 						)
 				)
 
