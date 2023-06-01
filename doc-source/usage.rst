@@ -18,6 +18,11 @@ TARGET defaults to ORIGIN, in which case the index files are generated inplace.
 	Added the :option:`--copy <-c>`, :option:`--sort <-s>`, :option:`--config` options, and removed the ``--move`` option.
 
 
+.. versionchanged:: 0.4.0
+
+	Added the :option:`--no-extract-metadata <-e>` option.
+
+
 Configuration File
 --------------------
 
