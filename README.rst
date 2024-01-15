@@ -108,7 +108,7 @@ An example repository can be seen at https://repo-helper.uk/simple503/
 	:target: https://github.com/repo-helper/simple503/commit/master
 	:alt: GitHub last commit
 
-.. |maintained| image:: https://img.shields.io/maintenance/yes/2023
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2024
 	:alt: Maintenance
 
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/simple503
