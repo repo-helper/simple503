@@ -56,4 +56,4 @@ known_third_party = [
     "shippinglabel",
     "typing_extensions",
 ]
-known_first_party = "simple503"
+known_first_party = [ "simple503",]
