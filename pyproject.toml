@@ -10,12 +10,12 @@ readme = "README.rst"
 keywords = [ "pep503", "pep658", "pip", "pypi",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
 
+[project.license]
+file = "LICENSE"
+
 [[project.authors]]
 name = "Dominic Davis-Foster"
 email = "dominic@davis-foster.co.uk"
-
-[project.license]
-file = "LICENSE"
 
 [project.urls]
 Homepage = "https://github.com/repo-helper/simple503"
