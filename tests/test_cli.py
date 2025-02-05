@@ -1,10 +1,11 @@
 # stdlib
 import shutil
+from typing import Dict, List, cast
 
 # 3rd party
 import pytest
 from apeye import URL
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup
 from coincidence.regressions import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
 from consolekit.testing import CliRunner
 from domdf_python_tools.paths import PathPlus, sort_paths
@@ -135,10 +136,10 @@ def test_index_page(
 
 	soup = BeautifulSoup((wheel_directory / "index.html").read_text(), "html.parser")
 
-	all_anchors = soup.findAll('a')
+	all_anchors = soup.find_all('a')
 	assert len(all_anchors) == 39
 
-	for anchor in all_anchors:
+	for anchor in cast(List[Dict], all_anchors):
 		href = URL(anchor["href"])
 
 		file = wheel_directory / href.path.name
@@ -160,10 +161,10 @@ def test_project_page(
 
 	soup = BeautifulSoup((wheel_directory / "domdf-python-tools" / "index.html").read_text(), "html.parser")
 
-	all_anchors = soup.findAll('a')
+	all_anchors = soup.find_all('a')
 	assert len(all_anchors) == 14
 
-	for anchor in all_anchors:
+	for anchor in cast(List[Dict], all_anchors):
 		href = URL(anchor["href"])
 		file = wheel_directory / href.path.name
 		assert file.name.startswith("domdf_python_tools")
@@ -198,10 +199,10 @@ def test_project_page_no_metadata(
 
 	soup = BeautifulSoup((wheel_directory / "domdf-python-tools" / "index.html").read_text(), "html.parser")
 
-	all_anchors = soup.findAll('a')
+	all_anchors = soup.find_all('a')
 	assert len(all_anchors) == 14
 
-	for anchor in all_anchors:
+	for anchor in cast(List[Dict], all_anchors):
 		href = URL(anchor["href"])
 		file = wheel_directory / href.path.name
 		assert file.name.startswith("domdf_python_tools")

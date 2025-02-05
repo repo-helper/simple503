@@ -2,12 +2,13 @@
 import hashlib
 import shutil
 from functools import partial
+from typing import Dict, List, cast
 
 # 3rd party
 import pytest
 from airium import Airium  # type: ignore
 from apeye import URL
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup
 from coincidence import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture
 from domdf_python_tools.paths import PathPlus, sort_paths
 from shippinglabel.checksum import check_sha256_hash
@@ -138,10 +139,10 @@ def test_index_page(
 
 	soup = BeautifulSoup((wheel_directory / "index.html").read_text(), "html5lib")
 
-	all_anchors = soup.findAll('a')
+	all_anchors = soup.find_all('a')
 	assert len(all_anchors) == 39
 
-	for anchor in all_anchors:
+	for anchor in cast(List[Dict], all_anchors):
 		href = URL(anchor["href"])
 
 		file = wheel_directory / href.path.name
@@ -159,10 +160,10 @@ def test_project_page(
 
 	soup = BeautifulSoup((wheel_directory / "domdf-python-tools" / "index.html").read_text(), "html5lib")
 
-	all_anchors = soup.findAll('a')
+	all_anchors = soup.find_all('a')
 	assert len(all_anchors) == 14
 
-	for anchor in all_anchors:
+	for anchor in cast(List[Dict], all_anchors):
 		href = URL(anchor["href"])
 		file = wheel_directory / href.path.name
 		assert file.name.startswith("domdf_python_tools")

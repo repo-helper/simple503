@@ -366,13 +366,14 @@ def _update_file(filename: PathPlus, new_content: str) -> bool:
 	:returns: Whether the file was updated on disk.
 	"""
 
+	if not filename.exists():
+		filename.write_clean(new_content)
+		return True
+
 	try:
 		# 3rd party
-		from bs4 import BeautifulSoup as soup  # type: ignore
+		from bs4 import BeautifulSoup as soup
 	except ImportError:  # pragma: no cover
-		soup = None
-
-	if not filename.exists() or soup is None:
 		filename.write_clean(new_content)
 		return True
 
