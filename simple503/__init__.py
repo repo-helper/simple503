@@ -36,7 +36,7 @@ from operator import attrgetter
 from typing import TYPE_CHECKING, Callable, Dict, Iterable, List, NamedTuple, Optional, Union
 
 # 3rd party
-from airium import Airium  # type: ignore
+from airium import Airium
 from apeye.url import URL
 from dist_meta import distributions, metadata
 from domdf_python_tools.paths import PathPlus
@@ -121,7 +121,7 @@ def make_simple(
 
 	projects: Dict[str, List[WheelFile]] = defaultdict(list)
 
-	move_operation: Callable = shutil.copyfile if copy else shutil.move  # type: ignore[assignment]
+	move_operation: Callable = shutil.copyfile if copy else shutil.move
 
 	unwanted_dirs = (".git", ".hg", "venv", ".venv", ".tox", ".tox4", ".nox")
 	for wheel_file in origin.iterchildren(exclude_dirs=unwanted_dirs, match="**/*.whl"):

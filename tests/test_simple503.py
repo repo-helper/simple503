@@ -6,7 +6,7 @@ from typing import Dict, List, cast
 
 # 3rd party
 import pytest
-from airium import Airium  # type: ignore
+from airium import Airium
 from apeye import URL
 from bs4 import BeautifulSoup
 from coincidence import AdvancedDataRegressionFixture, AdvancedFileRegressionFixture

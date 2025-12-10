@@ -3,7 +3,7 @@ import shutil
 
 # 3rd party
 import pytest
-from airium import Airium  # type: ignore
+from airium import Airium
 from coincidence import AdvancedFileRegressionFixture
 from coincidence.params import param
 from domdf_python_tools.paths import PathPlus
