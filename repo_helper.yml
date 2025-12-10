@@ -13,7 +13,6 @@ short_desc: 'PEP 503 Python package repository generator.'
 
 enable_conda: false
 use_whey: true
-python_deploy_version: 3.7
 min_coverage: 100
 docs_fail_on_warning: true
 sphinx_html_theme: furo
