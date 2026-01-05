@@ -27,31 +27,6 @@ lines_between_types = 0
 use_parentheses = true
 remove_redundant_aliases = true
 default_section = "THIRDPARTY"
-known_third_party = [
-    "airium",
-    "apeye",
-    "beautifulsoup4",
-    "cawdrey",
-    "click",
-    "coincidence",
-    "consolekit",
-    "coverage",
-    "coverage_pyver_pragma",
-    "dataclasses",
-    "dist_meta",
-    "dom_toml",
-    "domdf_python_tools",
-    "first",
-    "html5lib",
-    "importlib_metadata",
-    "natsort",
-    "pytest",
-    "pytest_cov",
-    "pytest_randomly",
-    "pytest_timeout",
-    "shippinglabel",
-    "typing_extensions",
-]
 known_first_party = [ "simple503",]
 
 [config]
