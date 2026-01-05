@@ -95,7 +95,7 @@ def _configure(ctx: click.Context, _, filename: PathLike) -> None:
 @auto_default_argument("target", type=click.STRING)
 @click.argument("origin", type=click.STRING)
 @click_command()
-def main(  # noqa: PRM002
+def main(
 		origin: PathLike,
 		target: Optional[PathLike] = None,
 		base_url: str = '/',
