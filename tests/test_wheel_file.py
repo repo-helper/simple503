@@ -48,14 +48,14 @@ def test_wheel_file(
 			filename=example_wheel.name,
 			wheel_hash=get_sha256_hash(example_wheel),
 			requires_python=">=3.6",
-			metadata_hash=get_sha256_hash(metadata_file)
+			metadata_hash=get_sha256_hash(metadata_file),
 			)
 	wf.as_anchor(page)
 
 	wf = WheelFile(
 			filename=example_wheel.name,
 			wheel_hash=get_sha256_hash(example_wheel),
-			metadata_hash=get_sha256_hash(metadata_file)
+			metadata_hash=get_sha256_hash(metadata_file),
 			)
 	wf.as_anchor(page)
 
@@ -63,7 +63,7 @@ def test_wheel_file(
 			filename=example_wheel.name,
 			wheel_hash=get_sha256_hash(example_wheel),
 			requires_python=">=3.6",
-			metadata_hash=True
+			metadata_hash=True,
 			)
 	wf.as_anchor(page)
 

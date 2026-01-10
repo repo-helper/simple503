@@ -120,10 +120,15 @@ def test_to_target_sort(
 
 	target = tmp_pathplus / "target"
 
-	dom_toml.dump({"simple503": {
-			"target": target.as_posix(),
-			"sort": True,
-			}}, (tmp_pathplus / "simple503.toml"))
+	dom_toml.dump(
+			{
+					"simple503": {
+							"target": target.as_posix(),
+							"sort": True,
+							},
+					},
+			(tmp_pathplus / "simple503.toml"),
+			)
 
 	with in_directory(tmp_pathplus):
 		result = cli_runner.invoke(main, args=[wheel_directory.as_posix()])
@@ -151,10 +156,15 @@ def test_to_target_sort_subdirs(
 		):
 	target = tmp_pathplus / "target"
 
-	dom_toml.dump({"simple503": {
-			"target": target.as_posix(),
-			"sort": True,
-			}}, (tmp_pathplus / "simple503.toml"))
+	dom_toml.dump(
+			{
+					"simple503": {
+							"target": target.as_posix(),
+							"sort": True,
+							},
+					},
+			(tmp_pathplus / "simple503.toml"),
+			)
 
 	base_subdir = tmp_pathplus / "subdir1"
 	with_subdirs = base_subdir.joinpath("subdir2", "subdir3")

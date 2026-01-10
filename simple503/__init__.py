@@ -164,7 +164,7 @@ def make_simple(
 						wheel_hash=get_sha256_hash(target_file),
 						requires_python=wheel_metadata.get("Requires-Python"),
 						metadata_hash=metadata_hash,
-						)
+						),
 				)
 
 	index_content = str(generate_index(projects.keys(), base_url=base_url))
@@ -203,7 +203,7 @@ def generate_index(projects: Iterable[str], base_url: Union[str, URL] = '/') -> 
 			get_meta_tags(index)
 
 			with index.title():
-				index(f"Simple Package Repository")
+				index("Simple Package Repository")
 
 		with index.body():
 			for project_name in natsorted(projects, key=str.lower):

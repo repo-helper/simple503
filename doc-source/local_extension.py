@@ -47,7 +47,7 @@ def configure(app: Sphinx, config: Config):
 	latex_preamble.blankline()
 
 	latex_elements["preamble"] = str(latex_preamble)
-	config.latex_elements = latex_elements  # type: ignore
+	config.latex_elements = latex_elements
 
 
 def setup(app: Sphinx):

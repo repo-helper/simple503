@@ -83,7 +83,7 @@ def _configure(ctx: click.Context, _, filename: PathLike) -> None:
 		"-e/-E",
 		"--extract-metadata/--no-extract-metadata",
 		help="Extract and serve METADATA files per PEP 658",
-		default=True
+		default=True,
 		)
 @auto_default_option(
 		"-B",

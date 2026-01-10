@@ -177,7 +177,7 @@ class Simple503ConfigParser(AbstractConfigParser):
 		self,
 		config: Dict[str, TOML_TYPES],
 		set_defaults: bool = False,
-		) -> ConfigDict:
+	) -> ConfigDict:
 		"""
 		Parse the TOML configuration.
 
