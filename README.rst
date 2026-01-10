@@ -112,7 +112,7 @@ An example repository can be seen at https://repo-helper.uk/simple503/
 	:alt: Maintenance
 
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/simple503
-	:target: https://pypi.org/project/simple503/
+	:target: https://pypistats.org/packages/simple503
 	:alt: PyPI - Downloads
 
 .. end shields
