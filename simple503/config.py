@@ -173,11 +173,11 @@ class Simple503ConfigParser(AbstractConfigParser):
 		self.assert_type(copy, bool, ["simple503", "copy"])
 		return copy
 
-	def parse(  # type: ignore[override]
-		self,
-		config: Dict[str, TOML_TYPES],
-		set_defaults: bool = False,
-	) -> ConfigDict:
+	def parse(
+			self,
+			config: Dict[str, TOML_TYPES],
+			set_defaults: bool = False,
+			) -> ConfigDict:
 		"""
 		Parse the TOML configuration.
 

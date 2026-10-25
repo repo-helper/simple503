@@ -271,7 +271,7 @@ class WheelFile(NamedTuple):
 			hash_string = f"{self.metadata_hash.name.lower()}={self.metadata_hash.hexdigest()}"
 			kwargs["data-dist-info-metadata"] = hash_string
 
-		with page.a(**kwargs):
+		with page.a(**kwargs):  # type: ignore[arg-type]  # TypedDict and **kwargs don't work together
 			page(posixpath.basename(self.filename))
 
 
